@@ -4,7 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const cors = require('cors');
-const ExpressError = require('./utils/ExpressError');
+const ExpressError = require('./utils/expressError');
 
 const MONGODB_HOST_NAME = process.env.MONGODB_HOST_NAME || 'localhost';
 const MONGODB_PORT = process.env.MONGODB_PORT || '27017';
