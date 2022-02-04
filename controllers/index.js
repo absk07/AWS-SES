@@ -13,7 +13,7 @@ module.exports = {
         await contact.save();         
         res.json({
             success: true,
-            msg: "Message sent successfully!"
+            msg: "Message sent successfully! We'll contact you soon!"
         });    
     },
 
@@ -27,7 +27,7 @@ module.exports = {
         await enquiry.save();       
         res.json({
             success: true,
-            msg: "Message sent successfully!"
+            msg: "Message sent successfully! We'll contact you soon!"
         });
     }
 

@@ -4,6 +4,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const cors = require('cors');
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 const ExpressError = require('./utils/expressError');
 
 const MONGODB_HOST_NAME = process.env.MONGODB_HOST_NAME || 'localhost';
@@ -27,6 +29,24 @@ app.use(express.urlencoded({
 app.use(cors());
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+const options = {
+    swaggerDefinition: {
+        openapi: "3.0.1",
+        info: {
+            title: "AWS SES API",
+            version: "1.0.0",
+        },
+        servers: [{
+            url: process.env.BASE_URL
+        }]
+    },
+    apis: ['./docs/**/*.yml'],
+};
+
+const swaggerSpecs = swaggerJsdoc(options);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 app.get('/', (req, res, next) => {
     res.json({

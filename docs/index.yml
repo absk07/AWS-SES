@@ -1,0 +1,69 @@
+paths:
+  /contactUs:
+    post:
+      tags:
+        - "Contact Us"
+      summary: "Contact Us"
+      description: "Contact Us"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:      
+              type: "object"
+              properties:
+                fname:
+                  type: "string"
+                lname:
+                  type: "string"  
+                email:
+                  type: "string"
+                department:
+                  type: "string"
+                message:
+                  type: "string"    
+      responses:
+        200:
+          description: "Successful Operation"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+              msg:
+                type: "string"
+                example: "Message sent successfully! We'll contact you soon!"
+  /enquiry:
+    post:
+      tags:
+        - "Enquiry"
+      summary: "Product Enquiry"
+      description: "Product Enquiry"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:      
+              type: "object"
+              properties:
+                name:
+                  type: "string"
+                organization:
+                  type: "string"  
+                email:
+                  type: "string"
+                unit:
+                  type: "number"
+                message:
+                  type: "string"    
+      responses:
+        200:
+          description: "Successful Operation"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+              msg:
+                type: "string"
+                example: "Message sent successfully! We'll contact you soon!"
