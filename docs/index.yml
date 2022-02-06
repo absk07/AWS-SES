@@ -72,7 +72,7 @@ paths:
       tags:
         - "Count Fruits"
       summary: "Count Fruits"
-      description: "Count total quantity and number of Fruits saved."
+      description: "Save count of total quantity and number of Fruits."
       requestBody:
         required: true
         content:
@@ -94,4 +94,25 @@ paths:
                 type: "boolean"
               msg:
                 type: "string"
-                example: "Data saved successfully!"              
+                example: "Data saved successfully!"
+  /getCount:
+    get:
+      tags:
+        - "Count Fruits"
+      summary: "Count Fruits"
+      description: "Get the count of total quantity and number of Fruits saved."    
+      responses:
+        200:
+          description: "Successful Operation"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+              data:
+                type: "object"
+                properties:
+                  fruitQuantity:
+                    type: "string"
+                  totalFruit:
+                    type: "string"                            
