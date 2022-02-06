@@ -3,7 +3,7 @@ const router = express.Router();
 
 const catchAsyncErr = require('../utils/asyncHandler');
 
-const { contactUs, enquiry, captcha, liveCount, getCount } = require('../controllers/index');
+const { contactUs, enquiry, captcha, getCount } = require('../controllers/index');
 
 router.post('/contactUs', catchAsyncErr(contactUs));
 
