@@ -67,6 +67,14 @@ module.exports = {
             success: true,
             data: count
         });
+    },
+
+    getCount: async (req, res, next) => {
+        const count = await Count.find({}).sort({ _id: -1 }).limit(1);
+        res.json({
+            success: true,
+            data: count
+        });
     }
 
 }
