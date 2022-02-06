@@ -53,21 +53,6 @@ module.exports = {
             });
         }
     },
-    
-    liveCount: async (req, res, next) => {
-        const { fruitQuantity, totalFruit } = req.body;
-        if(!req.body) 
-            return res.json({
-                success: false,
-                msg: "No data received!"
-            });
-        const count = new Count({ fruitQuantity, totalFruit });
-        await count.save();
-        res.json({
-            success: true,
-            data: count
-        });
-    },
 
     getCount: async (req, res, next) => {
         const count = await Count.find({}).sort({ _id: -1 }).limit(1);

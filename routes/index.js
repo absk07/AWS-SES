@@ -11,8 +11,6 @@ router.post('/enquiry', catchAsyncErr(enquiry));
 
 router.post('/verifyCaptcha', catchAsyncErr(captcha));
 
-router.post('/live-count', catchAsyncErr(liveCount));
-
 router.get('/getCount', catchAsyncErr(getCount));
 
 module.exports = router;
