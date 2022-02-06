@@ -67,3 +67,31 @@ paths:
               msg:
                 type: "string"
                 example: "Message sent successfully! We'll contact you soon!"
+  /live-count:
+    post:
+      tags:
+        - "Count Fruits"
+      summary: "Count Fruits"
+      description: "Count total quantity and number of Fruits saved."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:      
+              type: "object"
+              properties:
+                fname:
+                  fruitQuantity: "number"
+                lname:
+                  totalFruit: "number"    
+      responses:
+        200:
+          description: "Successful Operation"
+          schema:
+            type: "object"
+            properties:
+              success:
+                type: "boolean"
+              msg:
+                type: "string"
+                example: "Data saved successfully!"              

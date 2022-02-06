@@ -3,7 +3,9 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
+const http = require('http');
 const cors = require('cors');
+const socketIO = require('socket.io');
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const ExpressError = require('./utils/expressError');
@@ -15,10 +17,14 @@ const MONGODB_NAME = process.env.MONGODB_NAME || 'infyulabs';
 const MONGODB_URI = process.env.MONGODB_CLOUD_URI || `mongodb://${MONGODB_HOST_NAME}:${MONGODB_PORT}/${MONGODB_NAME}`;
 
 
-
 const app = express();
 
+const server = http.createServer(app);
+
+const io = socketIO(server);
+
 const indexRoutes = require('./routes/index');
+require('./socket/index')(io);
 
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({
@@ -27,8 +33,9 @@ app.use(express.urlencoded({
     extended: true
 }));
 app.use(cors());
-
 app.use(express.static(path.join(__dirname, 'public')));
+
+
 
 const options = {
     swaggerDefinition: {
@@ -47,6 +54,8 @@ const options = {
 const swaggerSpecs = swaggerJsdoc(options);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
+
+
 
 app.get('/', (req, res, next) => {
     res.json({

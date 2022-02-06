@@ -1,6 +1,9 @@
 const Contact = require('../models/contact');
 const Enquiry = require('../models/enquiry');
+const Count = require('../models/count');
 const sendMail = require('../utils/ses');
+
+const fetch = require('isomorphic-fetch');
 
 module.exports = {
 
@@ -28,6 +31,41 @@ module.exports = {
         res.json({
             success: true,
             msg: "Message sent successfully! We'll contact you soon!"
+        });
+    },
+
+    captcha: async (req, res, next) => {
+        const { response } = req.body;
+        const url = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${response}`;
+        const responseData = await fetch(url, {
+            method: 'POST',
+        });
+        const google_response = await responseData.json();
+        if(google_response.success) {
+            res.json({
+                success: true,
+                msg: "Captcha verified successfully!"
+            });
+        } else {
+            res.json({
+                success: false,
+                msg: "Captcha verification failed!"
+            });
+        }
+    },
+    
+    liveCount: async (req, res, next) => {
+        const { fruitQuantity, totalFruit } = req.body;
+        if(!req.body) 
+            return res.json({
+                success: false,
+                msg: "No data received!"
+            });
+        const count = new Count({ fruitQuantity, totalFruit });
+        await count.save();
+        res.json({
+            success: true,
+            data: count
         });
     }
 
