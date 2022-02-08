@@ -32,7 +32,8 @@ app.use(express.urlencoded({
     limit: '50mb',
     extended: true
 }));
-app.use(cors());
+
+process.env.ALLOWED_URL && app.use(cors({ origin: process.env.ALLOWED_URL.split(',') }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 
